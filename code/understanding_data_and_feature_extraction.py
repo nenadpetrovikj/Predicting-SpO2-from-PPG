@@ -44,7 +44,7 @@ for i in data.PPG[0]:
             print(position+1, data.PPG[0][position + 1])
     position += 1
 
-## Visualisation before interpolation - shows a segment of the PPG signal fluctuations including the impact of the Nan values
+## Visualisation before interpolation - shows a segment of the PPG signal fluctuations and the impact of the Nan values
 
 plt.figure(figsize=(12,4))
 plt.plot(data.PPG[0][:200])
@@ -87,12 +87,12 @@ print(f'# of PPG signals with a maximum of 5% Nan: {len(signals_containing_nan_5
 print(f'# of PPG signals with more than 5% Nan: {len(signals_containing_nan) - len(signals_containing_nan_5pc)}')
 
 if len(signals_containing_nan) != 0:
-  print(f'% of PPG signals with at least one Nan [PPG-Including-Nan]: {(len(signals_containing_nan)/data.shape[0])*100:.3f}%')
-  print(f'% of PPG signals with a maximum of 5% Nan, from PPG-Including-Nan: {(len(signals_containing_nan_5pc)/len(signals_containing_nan))*100:.3f}%')
-  print(f'% of PPG signals with more than 5% Nan, from PPG-Including-Nan: {(1-len(signals_containing_nan_5pc)/len(signals_containing_nan))*100:.3f}%')
-  print(f'% of entries where SpO2 is lower than 95, from PPG-Including-Nan: {low_spo2_below_95/(len(signals_containing_nan))*100:.3f}%')
+      print(f'% of PPG signals with at least one Nan [PPG-Including-Nan]: {(len(signals_containing_nan)/data.shape[0])*100:.3f}%')
+      print(f'% of PPG signals with a maximum of 5% Nan, from PPG-Including-Nan: {(len(signals_containing_nan_5pc)/len(signals_containing_nan))*100:.3f}%')
+      print(f'% of PPG signals with more than 5% Nan, from PPG-Including-Nan: {(1-len(signals_containing_nan_5pc)/len(signals_containing_nan))*100:.3f}%')
+      print(f'% of entries where SpO2 is lower than 95, from PPG-Including-Nan: {low_spo2_below_95/(len(signals_containing_nan))*100:.3f}%')
 
-## Visualisation after interpolation - shows a segment of the PPG signal fluctuations including the impact of the interpolated Nan values
+## Visualisation after interpolation - shows a segment of the PPG signal fluctuations and the impact of the interpolated Nan values
 # Conclusion - The visualisation asserts that the use of interpolation is a viable solution to filling missing data
 
 plt.figure(figsize=(12,4))

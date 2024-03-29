@@ -5,11 +5,11 @@ import numpy as np
 import owncloud
 import pickle
 import os
+import heartpy as hp
+import warnings
 from pathlib import Path
 from dotenv import load_dotenv
-import heartpy as hp
 from scipy.signal import find_peaks
-import warnings
 
 warnings.filterwarnings("ignore")
 
@@ -229,7 +229,8 @@ def dataset_summary(data):
 # 1. Files <= 250MB (respiratory): 20m
 # 2. Files <= 350MB (respiratory): 40m
 # 3. Files <= 400MB (respiratory): CRASH
-# 4. Files <= 350MB (hp): 1h 52m
+# 4. Files <= 250MB (hp): 45m
+# 5. Files <= 350MB (hp): 1h 52m
 
 client = owncloud.Client('https://sp4life.finki.ukim.mk')
 client.login(username, password)
