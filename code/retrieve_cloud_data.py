@@ -253,6 +253,11 @@ for file_ in file_list:
     extracted_data = feature_extraction_hp(processed_data, file_path)
     final_extracted_data = final_extracted_data.append(extracted_data, ignore_index=True)
 
+# Save .csv where PPG signal is a real representation of measurements in a list, instead of a flattened string
+# print(final_extracted_data.loc[1, 'PPG'])
+# final_extracted_data['PPG'] = final_extracted_data['PPG'].apply(lambda x: ','.join(map(str, x)))
+# print(final_extracted_data.loc[1, 'PPG'])
+
 final_extracted_data.to_csv('output_data/data_extraction_test.csv', index=False)
 
 data = pd.read_csv('output_data/data_extraction_test.csv')

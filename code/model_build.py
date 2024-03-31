@@ -3,6 +3,7 @@
 import pandas as pd
 import numpy as np
 import warnings
+import matplotlib.pyplot as plt
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 from sklearn.ensemble import RandomForestRegressor
 from tensorflow.keras.models import Sequential
@@ -12,7 +13,7 @@ warnings.filterwarnings("ignore")
 
 ## Load .csv file to use as a database in model creation
 
-data = pd.read_csv('output_data/respiratory-data_extracted_filter_350MB.csv', on_bad_lines='skip')
+data = pd.read_csv('output_data/respiratory-data_extracted_filter_250MB.csv', on_bad_lines='skip')
 
 data.info()
 
@@ -118,6 +119,34 @@ def create_rfr_model():
     model = RandomForestRegressor(max_depth=50, n_estimators=100, random_state=42, n_jobs=-1)
     return model
 
+## Plotting function
+
+def create_plot(model_name, y_pred, y_test):
+
+    y_pred_flattened = y_pred.flatten()
+    y_pred_series = pd.Series(y_pred_flattened)
+
+    y_pred_series = y_pred_series.reindex(y_test.index)
+
+    y_test_sorted = y_test.sort_index()
+    y_pred_sorted = y_pred_series.sort_index()
+
+    plt.figure()
+    plt.plot(y_test_sorted, label='Actual Data', color='blue')
+
+    # Plot predictions
+    plt.plot(y_pred_sorted, label='Predictions', color='red')
+
+    # Add legend
+    plt.legend()
+
+    # Add labels and title
+    plt.xlabel('Index')
+    plt.ylabel('SpO2 Level')
+    plt.title(f'{model_name} - Actual vs. Predicted SpO2 Levels')
+
+    plt.show()
+
 ## Build each model and save the results
 
 models = {
@@ -145,6 +174,8 @@ for model_name, model in models.items():
     mse = mean_squared_error(y_test, y_pred)
     rmse = np.sqrt(mse)
     r2 = r2_score(y_test, y_pred)
+
+    create_plot(model_name, y_pred, y_test)
 
     results = results.append({'Model': model_name, 'MAE': mae, 'MSE': mse, 'RMSE': rmse, 'R2': r2}, ignore_index=True)
 
