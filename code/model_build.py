@@ -75,6 +75,7 @@ def train_test_split(data):
     y_test = data_test['SpO2']
 
     print("Training set is " + str(int((len(X_test)/len(data)) * 100)) + "% of the whole dataset")
+
     return X_train, X_test, y_train, y_test
 
 ## Call train_test_split function
