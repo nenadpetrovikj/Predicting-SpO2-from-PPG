@@ -13,7 +13,7 @@ warnings.filterwarnings("ignore")
 
 ## Load .csv file to use as a database in model creation
 
-data = pd.read_csv('output_data/respiratory-data_extracted_filter_600MB.csv', on_bad_lines='skip')
+data = pd.read_csv('output_data/output_data_large/respiratory-data_extracted_filter_600MB.csv', on_bad_lines='skip')
 data.drop(index=data[data['SpO2'] < 80].index, inplace=True)  # drop all rows where the value for SpO2 < 80
 
 data.info()
@@ -74,6 +74,7 @@ def train_test_split(data):
     X_test = data_test.drop(columns=['SpO2'])
     y_test = data_test['SpO2']
 
+    print("Training set is " + str(int((len(X_test)/len(data)) * 100)) + "% of the whole dataset")
     return X_train, X_test, y_train, y_test
 
 ## Call train_test_split function
