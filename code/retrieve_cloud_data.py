@@ -260,5 +260,7 @@ for file_ in file_list:
 
 final_extracted_data.to_csv('output_data/data_extraction_test.csv', index=False)
 
-data = pd.read_csv('output_data/data_extraction_test.csv')
+data = pd.read_csv('output_data/output_data_large/respiratory-data_extracted_filter_600MB.csv')
+# Run the following line to remove outliers
+# data.drop(index=data[data['SpO2'] < 80].index, inplace=True)
 dataset_summary(data)
